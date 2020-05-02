@@ -1,0 +1,60 @@
+!!INFO Z UPELA!!
+
+7. Cóż, nie poszło najlepiej. Przyłapana w piramidzie (po co było pytać o bilet wstępu?)
+zostaniesz teraz rzucona w ofierze świętym krokodylom. Zwierzęta to może i sympatyczne lecz Ty
+wciąż młoda i inne masz plany niż teraz skończyć marnie. Dostrzegasz szansę. A gdyby tak
+szybko skacząc po ich wystających łbach przedostać się na drugi brzeg (koleżanka z celi mówi, że
+widziała to w filmie, ale kłamie, w naszych czasach jedyne filmy to te po kadzidłach w świątyni).
+Rozsądnie oceniasz, że dasz rade przeskoczyć na odległość do 5 łokci. Szybko nanosisz do tabel
+pozycje krokodyli (doskonale nieruchomych) i odległości między nimi. Teraz już tylko trzeba
+napisać algorytm, który ustali czy istnieje droga po krokodylich łbach z jednego brzegu Nilu
+na drugi.
+
+
+potrzebne algorytmy:
+->	algorytm przeszukiwania w głąb (DFS)
+->	algorytm przeszukiwania wszerz (BFS)
+	algorytm Bellmana-Forda
+	algorytm Dijkstry
+->	algorytm Prima
+->	algorytm Kruskala
+
+
+Napisać program w C/C++
+
+Przesłać za pomocą UPeL pliki z rozwiązaniami:
+plik z danymi wejściowymi
+plik wykonywalny
+instrukcja obsługi
+pliki *dll (jeśli są potrzebne)
+kod źródłowy
+dane z ustawieniami kompilatora (zalecany CodeBlocks lub Dev-C++, ale jeśli ktoś pracuje na innym, to może być inny o ile jest legalnie bezpłatnie dostępny)
+
+program wszystkie dane (w szczególności graf) musi wczytywać z pliku tekstowego - wpiszę tam swoje dane by sprawdzić czy program działa poprawnie
+wybór sposobu w jaki podany jest graf jest wyborem zespołu, nie ma potrzeby by działały wszystkie możliwe sposoby reprezentacji grafu - ma działać jeden
+wszystkie potrzebne algorytmy to drobne modyfikacje typowych algorytmów grafowych - jakich algorytmów konkretnie, proszę odkryć samemu, jeśli się nie uda to można mnie o to spytać (bez obniżania oceny), ale jakie modyfikacje - to już Państwa zadanie
+jeśli zespół wybrał zadanie i odkrył, że jednak nie ma pomysłu jaka modyfikacja jest potrzeba to można mnie o to pytać, ale już kosztem niższej oceny
+jeśli temat nie jest zrozumiały proszę wybrać inny lub dopytać o co chodzi, by potem nie było nieprzyjemnych niespodzianek - jak w normalnej pracy to klient decyduje czy dostał to co zamawiał :)
+podział pracy między członków zespołu to wewnętrzna sprawa zespołu - ocena jest jedna dla wszystkich z zespołu
+wolno korzystać z wszystkich standardowych bibliotek dostępnych w najpopularniejszych kompilatorach - w razie wątpliwości co do słowa "standardowa" proszę mnie pytać
+
+!!INFO Z UPELA!!
+
+
+
+Założenia projektowe:
+prosponuje CodeBlocks i pisanko w c++
+Git jaki może
+
+Wejście: plik.txt przedstawiający graf jako macierz sąsiedztwa, macierz incydencji
+
+1. Klasy dla wierzchołka, krawędzi i grafu z potrzebnymi interfejsami
+2. Odczyt grafu z pliku jako metoda grafu + działający main
+3. Zamiana odczytanych danych z pliku na krawędzie i wierzchołki
+4. Algorytm zaimplementowany jako metoda grafu
+
+Wyjście: jesli istnieje - wyświetlona droga po krokodykach po której można uciec, wypisane wierzchołki po kolei w konsoli
+		 jak nie istnieje to rip in peace
+
+
+
