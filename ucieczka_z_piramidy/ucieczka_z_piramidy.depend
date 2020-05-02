@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1588443179 source:c:\users\lenovo\documents\_studia\__magister_elektronika_i_telekomunikacja\semestr1\matma\__projekt\ucieczka_z_piramidy\src\graph.cpp
+	"graph.h"
+	<vector>
+
+1588443487 c:\users\lenovo\documents\_studia\__magister_elektronika_i_telekomunikacja\semestr1\matma\__projekt\ucieczka_z_piramidy\include\graph.h
+	<string>
+	<vector>
+	<iostream>
+
+1588443397 source:c:\users\lenovo\documents\_studia\__magister_elektronika_i_telekomunikacja\semestr1\matma\__projekt\ucieczka_z_piramidy\main.cpp
+	<iostream>
+	"graph.h"
+
