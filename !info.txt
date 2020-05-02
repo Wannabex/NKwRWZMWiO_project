@@ -12,8 +12,8 @@ na drugi.
 
 
 potrzebne algorytmy:
-->	algorytm przeszukiwania w głąb (DFS)
-->	algorytm przeszukiwania wszerz (BFS)
+	algorytm przeszukiwania w głąb (DFS)
+	algorytm przeszukiwania wszerz (BFS)
 	algorytm Bellmana-Forda
 	algorytm Dijkstry
 ->	algorytm Prima
@@ -48,9 +48,9 @@ Git jaki może
 
 Wejście: plik.txt przedstawiający graf jako macierz sąsiedztwa, macierz incydencji
 
-1. Klasy dla wierzchołka, krawędzi i grafu z potrzebnymi interfejsami
-2. Odczyt grafu z pliku jako metoda grafu + działający main
-3. Zamiana odczytanych danych z pliku na krawędzie i wierzchołki
+1. Klasa dla grafu z interfejsami i pustymi funkcjami, ogólna struktura programu
+2. Przygotowanie pliku.txt na którym prejdzie na drugą stronę i takiego na którym nie prejdzie + Odczyt grafu z pliku jako metoda grafu 
+3. Zamiana odczytanych danych z pliku - stringa na prawidłowy graf
 4. Algorytm zaimplementowany jako metoda grafu
 
 Wyjście: jesli istnieje - wyświetlona droga po krokodykach po której można uciec, wypisane wierzchołki po kolei w konsoli
