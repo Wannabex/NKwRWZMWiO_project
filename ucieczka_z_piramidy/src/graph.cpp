@@ -20,7 +20,7 @@ std::string Graph::look_at_the_crocodiles(/*plik tekstowy grafu*/)
 void Graph::think_about_the_way(std::string crocodiles_along_the_way)
 {
     std::cout << "think_about_the_way function" << std::endl;
-    std::string graph_string_example = "  0,1,2,3  ,4,0,6,7,8,     9, 0, 5, 6, 7, 2, 0  ";
+    std::string graph_string_example = "  0,1,2,3  ,4,0,6,7,8,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 14, 5, 88";
     std::cout << "startowy grafik " << graph_string_example << std::endl << std::endl;
     std::vector <int> weights_vector;
 
@@ -30,17 +30,22 @@ void Graph::think_about_the_way(std::string crocodiles_along_the_way)
 
     int graph_vector_size = weights_vector.size();
     this->number_of_vertices = std::sqrt(graph_vector_size);
-    std::cout << "wektor grafowy " << weights_vector.size() << this->number_of_vertices << std::endl << std::endl;
+    std::cout << "wektor grafowy " << weights_vector.size() << " " << this->number_of_vertices << std::endl << std::endl;
 
     this->adjacency_matrix = new std::vector <int>[number_of_vertices];
     for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
     {
         for (int neighbour = 0; neighbour < this->number_of_vertices; neighbour++)
         {
-            this->adjacency_matrix[vertex].push_back(weights_vector[vertex* this->number_of_vertices + neighbour]);
-            std::cout << weights_vector[vertex* this->number_of_vertices + neighbour];
+            if (weights_vector[vertex* this->number_of_vertices + neighbour] < 5)
+            {
+                this->adjacency_matrix[vertex].push_back(weights_vector[vertex* this->number_of_vertices + neighbour]);
+            }
+            else
+            {
+                this->adjacency_matrix[vertex].push_back(0);
+            }
         }
-        std::cout << std::endl;
     }
 
 }
@@ -48,16 +53,15 @@ void Graph::think_about_the_way(std::string crocodiles_along_the_way)
 
 void Graph::print_the_way()
 {
-
     std::cout << "print_the_way function" << std::endl;
 
     for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
     {
         for (int neighbour = 0; neighbour < this->number_of_vertices; neighbour++)
         {
-         //   std::cout << this->adjacency_matrix[vertex* this->number_of_vertices + neighbour] << " ";
+            std::cout << this->adjacency_matrix[vertex][neighbour] << " ";
         }
-      //  std::cout << std::endl;
+        std::cout << std::endl;
     }
 
 }

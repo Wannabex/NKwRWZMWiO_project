@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <math.h>   // for sqrt
+#include <math.h>   // dla sqrt
 
 class Graph
 {
