@@ -20,7 +20,9 @@ std::string Graph::look_at_the_crocodiles(/*plik tekstowy grafu*/)
 void Graph::think_about_the_way(std::string crocodiles_along_the_way)
 {
     std::cout << "think_about_the_way function" << std::endl;
-    std::string graph_string_example = "  0,1,2,3  ,4,0,6,7,8,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 14, 5, 88";
+    std::string graph_string_example_fail = "  0,1,2,3  ,4,0,6,7,8,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 14, 5, 88";
+    std::string graph_string_example_pass = "  0,1,2,3  ,4,0,6,7,2,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 2, 5, 88";
+    std::string graph_string_example = graph_string_example_fail;
     std::cout << "startowy grafik " << graph_string_example << std::endl << std::endl;
     std::vector <int> weights_vector;
 
@@ -69,7 +71,33 @@ void Graph::print_the_way()
 
 void Graph::calculate_possible_way()
 {
-    std::cout << "calculate_possible_way function" << std::endl;
+    bool vertex_has_value_flag = false;
+
+    std::cout << std::endl << "calculate_possible_way function" << std::endl;
+
+    for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
+    {
+        vertex_has_value_flag = false;
+        for (int neighbour = 0; neighbour < this->number_of_vertices; neighbour++)
+        {
+            if(this->adjacency_matrix[vertex][neighbour] != 0){
+                vertex_has_value_flag = true;
+            }
+        }
+        if(!vertex_has_value_flag){
+            break;
+        }
+    }
+
+    if(vertex_has_value_flag)
+    {
+        std::cout << "Da sie przejsc :)" << std::endl;
+    }
+    else
+    {
+        std::cout << "Nie da sie przejsc :(" << std::endl;
+    }
+
 
 }
 
