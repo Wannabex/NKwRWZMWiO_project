@@ -12,3 +12,16 @@
 	<iostream>
 	"graph.h"
 
+1588665612 source:c:\gac\edukacja\matma\nkwrwzmwio_project\ucieczka_z_piramidy\main.cpp
+	<iostream>
+	"graph.h"
+
+1588667835 c:\gac\edukacja\matma\nkwrwzmwio_project\ucieczka_z_piramidy\include\graph.h
+	<string>
+	<vector>
+	<iostream>
+	<math.h>
+
+1588672345 source:c:\gac\edukacja\matma\nkwrwzmwio_project\ucieczka_z_piramidy\src\graph.cpp
+	"graph.h"
+
