@@ -1,5 +1,8 @@
 #include "graph.h"
 
+#define PRIM_NULL 255
+#define PRIM_INF 254
+
 Graph::Graph(/*plik tekstowy grafu*/)
 {
     std::cout << "constructor here" << std::endl;
@@ -22,7 +25,8 @@ void Graph::think_about_the_way(std::string crocodiles_along_the_way)
     std::cout << "think_about_the_way function" << std::endl;
     std::string graph_string_example_fail = "  0,1,2,3  ,4,0,6,7,8,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 14, 5, 88";
     std::string graph_string_example_pass = "  0,1,2,3  ,4,0,6,7,2,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 2, 5, 88";
-    std::string graph_string_example = graph_string_example_pass;
+    std::string graph_string_example_test = " 0, 1, 3, 1, 0, 2, 3, 2, 0";
+    std::string graph_string_example = graph_string_example_test;
     std::cout << "startowy grafik " << graph_string_example << std::endl << std::endl;
     std::vector <int> weights_vector;
 
@@ -73,12 +77,12 @@ void Graph::calculate_possible_way()
 {
     std::cout << std::endl << "calculate_possible_way function" << std::endl;
 
-    bool vertex_has_value_flag = find_row_without_value();
+    bool vertex_has_weight_flag = find_row_without_value();
 
-    if(vertex_has_value_flag)
+    if(vertex_has_weight_flag)
     {
-        prim_algorith();
         std::cout << "Da sie przejsc :)" << std::endl;
+        prim_algorith();
     }
     else
     {
@@ -88,13 +92,57 @@ void Graph::calculate_possible_way()
 
 void Graph::prim_algorith()
 {
-    for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
-    {
-        for (int neighbour = 0; neighbour < this->number_of_vertices; neighbour++)
+    int path_weigths[number_of_vertices];                                           //ta tablica pokazuje wage sciezki ktora doprowadzila do danego wierzcholka path_weights[3] = 5 oznacza, ze sciezka ktora dostalismy do 3 z poprzedniego wierzcholka wynosi 5
+    int previous_vertexs[number_of_vertices];                                       //pokazuje poprzedni wierzcho³ek, previous_vertexs[3] = 2 oznacza, ze do 3. wiercholka dostalismy sie z 2
+    int finished_vertexs[number_of_vertices];                                       //tablica "techniczna" 0 oznacza, ze jeszcze nie dotarlismy do wierzcholka, 1 oznacza, ze juz tam dotarlismy
+    for(int i = 0; i < number_of_vertices; i++){
+        path_weigths[i] = PRIM_INF;
+        previous_vertexs[i] = PRIM_NULL;                                            //inicjalizacja powyzszych tablic
+        finished_vertexs[i] = 0;
+    }
+    int actual_vertex = 0;                                                          //arbitralne wybranie poczatkowego wezla
+    bool end_loop = false;
+
+    path_weigths[actual_vertex] = 0;
+
+    while(!end_loop){
+        finished_vertexs[actual_vertex] = 1;                                         //aktualny wezel byl zakonczony w poprzedniej iteracji
+        for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
         {
-            //this->adjacency_matrix[vertex][neighbour]
+            if(this->adjacency_matrix[actual_vertex][vertex] != 0)                   //sprawdzamy czy pomiedzy aktualnym wezlem a tym ktory sprawdzamy jest polaczanie
+            {
+                if(path_weigths[vertex] > adjacency_matrix[actual_vertex][vertex]){  //sprawdzamy czy szybciej dotrzemy w wpisanym poprzednio polaczeniu czy w tym nowym
+                    path_weigths[vertex] = adjacency_matrix[actual_vertex][vertex];  //zmieniamy jezeli nowa droga jest szybsza
+                    previous_vertexs[vertex] = actual_vertex;
+                }
+            }
+        }
+        int smallest_weigth = PRIM_INF;
+        for(int i = 0; i < number_of_vertices; i++){
+            end_loop = true;
+            if(!finished_vertexs[i]){
+                end_loop = false;
+                if(smallest_weigth > path_weigths[i]){                                //szukamy najmniejszej wartosci sciezki, wsrod tych nie skonczonych
+                    smallest_weigth = path_weigths[i];                                //jezeli nie wejdziemy do tego ifa to znaczy ze dotralismy do wszystkich wezlow
+                    actual_vertex = i;
+                }
+            }
         }
     }
+    std::cout << std::endl << "path_weigths:";
+    for(int i = 0; i < number_of_vertices; i++){
+        std::cout << path_weigths[i] << " ";
+    }
+    std::cout << std::endl << "previous_vertexs:";
+    for(int i = 0; i < number_of_vertices; i++){
+        std::cout << previous_vertexs[i] << " ";;
+    }
+
+    std::cout << std::endl << "finished_vertexs:";
+    for(int i = 0; i < number_of_vertices; i++){
+        std::cout << finished_vertexs[i] << " ";;
+    }
+
 }
 
 bool Graph::find_row_without_value()
