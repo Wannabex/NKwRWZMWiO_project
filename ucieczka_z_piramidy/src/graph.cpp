@@ -100,47 +100,53 @@ void Graph::prim_algorith()
         previous_vertexs[i] = PRIM_NULL;                                            //inicjalizacja powyzszych tablic
         finished_vertexs[i] = 0;
     }
-    int actual_vertex = 0;                                                          //arbitralne wybranie poczatkowego wezla
-    bool end_loop = false;
 
+    int actual_vertex = 0;                                                          //arbitralne wybranie poczatkowego wezla
     path_weigths[actual_vertex] = 0;
 
-    while(!end_loop){
-        finished_vertexs[actual_vertex] = 1;                                         //aktualny wezel byl zakonczony w poprzedniej iteracji
+    //Ten "for" to glowna petla, wykonuje sie tyle razy ile wynosi liczba vertex bo w kazdej iteracji wybieramy jeden vertex
+    for (int vertex = 0; vertex < this->number_of_vertices; vertex++){
+        //Ten "for" sluzy do wypelniania tablicy path_weights i previous_vertexs zgodnie z aktulnym vertexem
         for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
         {
-            if(this->adjacency_matrix[actual_vertex][vertex] != 0)                   //sprawdzamy czy pomiedzy aktualnym wezlem a tym ktory sprawdzamy jest polaczanie
+            if(this->adjacency_matrix[actual_vertex][vertex] != 0                           //Jezeli istnieje polaczenie...
+            && path_weigths[vertex] > this->adjacency_matrix[actual_vertex][vertex])        //...i nowe polaczenie jest krotsze od aktualnego...
             {
-                if(path_weigths[vertex] > adjacency_matrix[actual_vertex][vertex]){  //sprawdzamy czy szybciej dotrzemy w wpisanym poprzednio polaczeniu czy w tym nowym
-                    path_weigths[vertex] = adjacency_matrix[actual_vertex][vertex];  //zmieniamy jezeli nowa droga jest szybsza
-                    previous_vertexs[vertex] = actual_vertex;
-                }
+                path_weigths[vertex] = adjacency_matrix[actual_vertex][vertex];             //...zastepujemy to polaczenie nowym
+                previous_vertexs[vertex] = actual_vertex;
             }
         }
         int smallest_weigth = PRIM_INF;
-        for(int i = 0; i < number_of_vertices; i++){
-            end_loop = true;
-            if(!finished_vertexs[i]){
-                end_loop = false;
-                if(smallest_weigth > path_weigths[i]){                                //szukamy najmniejszej wartosci sciezki, wsrod tych nie skonczonych
-                    smallest_weigth = path_weigths[i];                                //jezeli nie wejdziemy do tego ifa to znaczy ze dotralismy do wszystkich wezlow
-                    actual_vertex = i;
+        //W tym forze szukamy najkrotszego polaczenia dla niezakonczonych wierzcholkow
+        for(int vertex = 0; vertex < number_of_vertices; vertex++){
+            if(!finished_vertexs[vertex]){
+                if(smallest_weigth > path_weigths[vertex]){
+                    smallest_weigth = path_weigths[vertex];
+                    actual_vertex = vertex;
                 }
             }
         }
-    }
-    std::cout << std::endl << "path_weigths:";
-    for(int i = 0; i < number_of_vertices; i++){
-        std::cout << path_weigths[i] << " ";
-    }
-    std::cout << std::endl << "previous_vertexs:";
-    for(int i = 0; i < number_of_vertices; i++){
-        std::cout << previous_vertexs[i] << " ";;
+        finished_vertexs[actual_vertex] = 1;                                         //aktualny wezel zostal zakonczony w poprzednich krokach
+
     }
 
-    std::cout << std::endl << "finished_vertexs:";
-    for(int i = 0; i < number_of_vertices; i++){
-        std::cout << finished_vertexs[i] << " ";;
+    bool is_work_flag = true;
+
+    for (int vertex = 0; vertex < this->number_of_vertices; vertex++){
+        if(finished_vertexs[vertex] == 0){
+            is_work_flag = false;
+            break;
+        }
+    }
+
+    if(is_work_flag){
+        std::cout << "Zaczynamy od krokodyla o numerze: 0" << std::endl;
+        for(int i = 1; i < number_of_vertices; i++){
+            std::cout << "z krokodyla o numerze: " << previous_vertexs[i] << " nalezy skoczyc na krokodyla o numerze: " << i << ", odleglosc miedzy nimi wynosi: " << path_weigths[i] << " stop" << std::endl;
+        }
+    }
+    else{
+        std::cout << "Error: Algorytm prima nie zostal wykonany prawidlowo" << std::endl;
     }
 
 }
