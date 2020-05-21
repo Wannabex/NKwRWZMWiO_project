@@ -23,9 +23,9 @@ std::string Graph::look_at_the_crocodiles(/*plik tekstowy grafu*/)
 void Graph::think_about_the_way(std::string crocodiles_along_the_way)
 {
     std::cout << "think_about_the_way function" << std::endl;
-    std::string graph_string_example_fail = "  0,1,2,3  ,4,0,6,7,8,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 14, 5, 88";
-    std::string graph_string_example_pass = "  0,1,2,3  ,4,0,6,7,2,     9, 0, 5, 6, 7, 2, 0  ,1, 24, 33, 2 ,88, 102, 2, 5, 88";
-    std::string graph_string_example_test = " 0, 1, 3, 1, 0, 2, 3, 2, 0";
+    std::string graph_string_example_fail = "0,8,6,0,7,0,8,0,5,4,0,1,6,5,0,1,0,2,0,4,1,0,0,3,7,0,0,0,0,7,0,1,2,3,7,0";
+    std::string graph_string_example_pass = "0,0,1,5,7,4,0,0,0,4,4,5,1,0,0,2,2,7,5,4,2,0,6,2,7,4,2,6,0,1,4,5,7,2,1,0";
+    std::string graph_string_example_test = "0,2,0,3,2,0,4,3,0,4,0,1,3,3,1,0";
     std::string graph_string_example = graph_string_example_test;
     std::cout << "startowy grafik " << graph_string_example << std::endl << std::endl;
     std::vector <int> weights_vector;
@@ -106,10 +106,13 @@ void Graph::prim_algorith()
 
     //Ten "for" to glowna petla, wykonuje sie tyle razy ile wynosi liczba vertex bo w kazdej iteracji wybieramy jeden vertex
     for (int vertex = 0; vertex < this->number_of_vertices; vertex++){
+        finished_vertexs[actual_vertex] = 1;                                         //aktualny wezel zostal zakonczony w poprzednich krokach
+
         //Ten "for" sluzy do wypelniania tablicy path_weights i previous_vertexs zgodnie z aktulnym vertexem
         for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
         {
-            if(this->adjacency_matrix[actual_vertex][vertex] != 0                           //Jezeli istnieje polaczenie...
+            if(finished_vertexs[vertex] == 0                                                //Jezeli polaczenie nie jest zakonczone...
+            &&this->adjacency_matrix[actual_vertex][vertex] != 0                            //... i jezeli istnieje polaczenie...
             && path_weigths[vertex] > this->adjacency_matrix[actual_vertex][vertex])        //...i nowe polaczenie jest krotsze od aktualnego...
             {
                 path_weigths[vertex] = adjacency_matrix[actual_vertex][vertex];             //...zastepujemy to polaczenie nowym
@@ -126,7 +129,7 @@ void Graph::prim_algorith()
                 }
             }
         }
-        finished_vertexs[actual_vertex] = 1;                                         //aktualny wezel zostal zakonczony w poprzednich krokach
+
 
     }
 
@@ -140,10 +143,23 @@ void Graph::prim_algorith()
     }
 
     if(is_work_flag){
-        std::cout << "Zaczynamy od krokodyla o numerze: 0" << std::endl;
-        for(int i = 1; i < number_of_vertices; i++){
-            std::cout << "z krokodyla o numerze: " << previous_vertexs[i] << " nalezy skoczyc na krokodyla o numerze: " << i << ", odleglosc miedzy nimi wynosi: " << path_weigths[i] << " stop" << std::endl;
+        int step = number_of_vertices - 1;
+        while(1){
+            std::cout << "do krokodyla o numerze: " << step << " dotrzemy z krokodyla o numerze: " << previous_vertexs[step] << " odleglosc wynosi: " << path_weigths[step] << " stop" << std::endl;
+            step = previous_vertexs[step];
+            if(step == 0)
+                break;
         }
+
+        /*std::cout << std::endl;
+        for(int i = 1; i < number_of_vertices; i++){
+            std::cout << "do krokodyla o numerze: " << i << " dotrzemy z krokodyla o numerze: " << previous_vertexs[i] << " odleglosc wynosi: " << path_weigths[i] << " stop" << std::endl;
+        }
+
+        std::cout << std::endl;
+        for(int i = 1; i < number_of_vertices; i++){
+            std::cout << previous_vertexs[i] << ", ";
+        }*/
     }
     else{
         std::cout << "Error: Algorytm prima nie zostal wykonany prawidlowo" << std::endl;
