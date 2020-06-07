@@ -27,8 +27,6 @@ class Graph
 
         std::string format_graph_string(std::string& string_with_graph);                  // Funkcja pomagajaca przy zad 3.
         std::vector <int> graph_string_to_vector(std::string& formatted_string_with_graph);        // Funkcja pomagajaca przy zad 3.
-        bool find_row_without_value(void);                                  // Funkcja pomagajaca przy zad 4.
-        void prim_algorith(void);                                        // Funkcja pomagajaca przy zad 4.
 };
 
 #endif // GRAPH_H
