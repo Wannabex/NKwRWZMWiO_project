@@ -25,3 +25,15 @@
 1588747480 source:c:\gac\edukacja\matma\nkwrwzmwio_project\ucieczka_z_piramidy\src\graph.cpp
 	"graph.h"
 
+1591438893 source:d:\repozytoria_git\nkwrwzmwio\nkwrwzmwio_project\ucieczka_z_piramidy\main.cpp
+	<iostream>
+	"graph.h"
+
+1591535383 d:\repozytoria_git\nkwrwzmwio\nkwrwzmwio_project\ucieczka_z_piramidy\include\graph.h
+	<string>
+	<vector>
+	<iostream>
+	<math.h>
+	<fstream>
+	<cstdlib>
+

@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <math.h>   // dla sqrt
+#include <fstream>
+#include <cstdlib>
 
 class Graph
 {

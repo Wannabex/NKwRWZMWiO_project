@@ -10,14 +10,32 @@ Graph::Graph(/*plik tekstowy grafu*/)
     think_about_the_way(crocodiles_along_the_way);
 }
 
-
-
 std::string Graph::look_at_the_crocodiles(/*plik tekstowy grafu*/)
 {
     std::cout << "look_at_the_crocodiles function" << std::endl;
-    std::string file_content;
+    std::string line, something;
+    int helpint;            // pomocniczy int do wyznaczenia dlugosci lancucha
+    std::fstream file;
+    file.open("crocodiles_succes4.txt",std::ios::in);
 
-    return file_content;
+    if(file.good()==false)
+    {
+        std::cout << "Plik nie istnieje!";
+        exit(0);
+    }
+
+    while(getline(file,line))
+    {
+        something = something + line + ",";
+    }
+
+    file.close();
+
+    helpint = something.length();
+    something.erase(helpint-1,1);
+    crocodiles_along_the_way = something;
+
+    return crocodiles_along_the_way;
 }
 
 void Graph::think_about_the_way(std::string crocodiles_along_the_way)
@@ -26,7 +44,7 @@ void Graph::think_about_the_way(std::string crocodiles_along_the_way)
     std::string graph_string_example_fail = "0,8,6,0,7,0,8,0,5,4,0,1,6,5,0,1,0,2,0,4,1,0,0,3,7,0,0,0,0,7,0,1,2,3,7,0";
     std::string graph_string_example_pass = "0,0,1,5,7,4,0,0,0,4,4,5,1,0,0,2,2,7,5,4,2,0,6,2,7,4,2,6,0,1,4,5,7,2,1,0";
     std::string graph_string_example_test = "0,2,0,3,2,0,4,3,0,4,0,1,3,3,1,0";
-    std::string graph_string_example = graph_string_example_test;
+    std::string graph_string_example = crocodiles_along_the_way;
     std::cout << "startowy grafik " << graph_string_example << std::endl << std::endl;
     std::vector <int> weights_vector;
 
