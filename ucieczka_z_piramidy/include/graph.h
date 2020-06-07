@@ -11,13 +11,13 @@
 class Graph
 {
     public:
-        Graph(/*plik tekstowy grafu*/);
+        Graph(std::string nazwa_pliku);
         void calculate_possible_way();                                       // zad 4. Glówny algorytm - sprawdzenie czy uda sie przeskoczyc na druga strone - algorytm prima/kruskala
 
-        void print_the_way();                                                // Wypisac grafik jako macierz sasiedztwa, nawet niepotrzebne
+        void print_pyramid_map();                                                // Wypisac grafik jako macierz sasiedztwa, nawet niepotrzebne
 
     private:
-        std::string look_at_the_crocodiles(/*plik tekstowy grafu*/);         // zad 2. Wczytanie grafu z pliku crocodiles.txt, zwrocenie stringa
+        std::string look_at_the_crocodiles(std::string nazwa_pliku);         // zad 2. Wczytanie grafu z pliku crocodiles.txt, zwrocenie stringa
         void think_about_the_way(std::string crocodiles_along_the_way);      // zad 3. Zamiana wczytanego pliku w wierzcholki i krawedzie, czyli w macierz sasiedztwa, usuniêcie wszystkich krawedzi >= 5
 
         std::string crocodiles_along_the_way;                                // Odczytany plik tekstowy tutaj

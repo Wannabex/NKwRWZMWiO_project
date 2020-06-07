@@ -4,20 +4,18 @@
 #define PRIM_INF 254
 #define DEBBUG 0
 
-Graph::Graph(/*plik tekstowy grafu*/)
+Graph::Graph(std::string nazwa_pliku)
 {
-    std::cout << "constructor here" << std::endl;
-    crocodiles_along_the_way = look_at_the_crocodiles(/*plik tekstowy grafu*/);
+    crocodiles_along_the_way = look_at_the_crocodiles(nazwa_pliku);
     think_about_the_way(crocodiles_along_the_way);
 }
 
-std::string Graph::look_at_the_crocodiles(/*plik tekstowy grafu*/)
+std::string Graph::look_at_the_crocodiles(std::string nazwa_pliku)
 {
-    std::cout << "look_at_the_crocodiles function" << std::endl;
     std::string line, something;
     int helpint;            // pomocniczy int do wyznaczenia dlugosci lancucha
     std::fstream file;
-    file.open("crocodiles_succes4.txt",std::ios::in);
+    file.open(nazwa_pliku,std::ios::in);
 
     if(file.good()==false)
     {
@@ -41,28 +39,21 @@ std::string Graph::look_at_the_crocodiles(/*plik tekstowy grafu*/)
 
 void Graph::think_about_the_way(std::string crocodiles_along_the_way)
 {
-    std::cout << "think_about_the_way function" << std::endl;
-    std::string graph_string_example_fail = "0,8,6,0,7,0,8,0,5,4,0,1,6,5,0,1,0,2,0,4,1,0,0,3,7,0,0,0,0,7,0,1,2,3,7,0";
-    std::string graph_string_example_pass = "0,0,1,5,7,4,0,0,0,4,4,5,1,0,0,2,2,7,5,4,2,0,6,2,7,4,2,6,0,1,4,5,7,2,1,0";
-    std::string graph_string_example_test = "0,2,0,3,2,0,4,3,0,4,0,1,3,3,1,0";
-    std::string graph_string_example = crocodiles_along_the_way;
-    std::cout << "startowy grafik " << graph_string_example << std::endl << std::endl;
     std::vector <int> weights_vector;
 
-    graph_string_example = format_graph_string(graph_string_example);
-    weights_vector = graph_string_to_vector(graph_string_example);
+    crocodiles_along_the_way = format_graph_string(crocodiles_along_the_way);
+    weights_vector = graph_string_to_vector(crocodiles_along_the_way);
 
 
     int graph_vector_size = weights_vector.size();
     this->number_of_vertices = std::sqrt(graph_vector_size);
-    std::cout << "wektor grafowy " << weights_vector.size() << " " << this->number_of_vertices << std::endl << std::endl;
 
     this->adjacency_matrix = new std::vector <int>[number_of_vertices];
     for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
     {
         for (int neighbour = 0; neighbour < this->number_of_vertices; neighbour++)
         {
-            if (weights_vector[vertex* this->number_of_vertices + neighbour] < 5)
+            if (weights_vector[vertex* this->number_of_vertices + neighbour] <= 5)
             {
                 this->adjacency_matrix[vertex].push_back(weights_vector[vertex* this->number_of_vertices + neighbour]);
             }
@@ -72,29 +63,10 @@ void Graph::think_about_the_way(std::string crocodiles_along_the_way)
             }
         }
     }
-
-}
-
-
-void Graph::print_the_way()
-{
-    std::cout << "print_the_way function" << std::endl;
-
-    for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
-    {
-        for (int neighbour = 0; neighbour < this->number_of_vertices; neighbour++)
-        {
-            std::cout << this->adjacency_matrix[vertex][neighbour] << " ";
-        }
-        std::cout << std::endl;
-    }
-
 }
 
 void Graph::calculate_possible_way()
 {
-    std::cout << std::endl << "calculate_possible_way function" << std::endl;
-
     int path_weigths[number_of_vertices];                                           //ta tablica pokazuje wage sciezki ktora doprowadzila do danego wierzcholka path_weights[3] = 5 oznacza, ze sciezka ktora dostalismy do 3 z poprzedniego wierzcholka wynosi 5
     int previous_vertexs[number_of_vertices];                                       //pokazuje poprzedni wierzcho³ek, previous_vertexs[3] = 2 oznacza, ze do 3. wiercholka dostalismy sie z 2
     int finished_vertexs[number_of_vertices];                                       //tablica "techniczna" 0 oznacza, ze jeszcze nie dotarlismy do wierzcholka, 1 oznacza, ze juz tam dotarlismy
@@ -172,6 +144,18 @@ void Graph::calculate_possible_way()
 
 }
 
+void Graph::print_pyramid_map()
+{
+    for (int vertex = 0; vertex < this->number_of_vertices; vertex++)
+    {
+        for (int neighbour = 0; neighbour < this->number_of_vertices; neighbour++)
+        {
+            std::cout << this->adjacency_matrix[vertex][neighbour] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 std::string Graph::format_graph_string(std::string& string_with_graph)
 {
     std::string formatted_string;
@@ -185,13 +169,11 @@ std::string Graph::format_graph_string(std::string& string_with_graph)
             formatted_string.push_back(current_character);
         }
     }
-    std::cout << "sformatowany grafik " << formatted_string << std::endl << std::endl;
     return formatted_string;
 }
 
 std::vector <int> Graph::graph_string_to_vector(std::string& string_with_graph)
 {
-    std::cout << "zmienie go w wektor " << string_with_graph << std::endl << std::endl;
     std::vector <int> weights_vector;
     int string_length = string_with_graph.length();
     int current_weight_starting_position = 0;
