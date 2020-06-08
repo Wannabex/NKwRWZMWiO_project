@@ -39,11 +39,11 @@
 	<fstream>
 	<cstdlib>
 
-1591607748 source:c:\gac\projekty\matematyka\ucieczka_z_piramidy\main.cpp
+1591641207 source:c:\gac\projekty\matematyka\ucieczka_z_piramidy\main.cpp
 	<iostream>
 	"graph.h"
 
-1591624441 c:\gac\projekty\matematyka\ucieczka_z_piramidy\include\graph.h
+1591641924 c:\gac\projekty\matematyka\ucieczka_z_piramidy\include\graph.h
 	<string>
 	<vector>
 	<iostream>
@@ -51,6 +51,6 @@
 	<fstream>
 	<cstdlib>
 
-1591624414 source:c:\gac\projekty\matematyka\ucieczka_z_piramidy\src\graph.cpp
+1591641008 source:c:\gac\projekty\matematyka\ucieczka_z_piramidy\src\graph.cpp
 	"graph.h"
 

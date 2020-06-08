@@ -2,7 +2,6 @@
 
 #define PRIM_NULL 255
 #define PRIM_INF 254
-#define DEBBUG 0
 
 Graph::Graph(std::string pyramid_file_name)
 {
@@ -79,24 +78,12 @@ bool Graph::check_algoritm(int finished_vertexs[]){
 }
 
 void Graph::print_algoritm_result(int path_weigths[], int previous_vertexs[], bool finished_flag){
-    if(DEBBUG == 1){
-        std::cout << std::endl;
-        for(int i = 1; i < number_of_vertices; i++){
-            std::cout << path_weigths[i] << ", ";
-        }
-
-        std::cout << std::endl;
-        for(int i = 1; i < number_of_vertices; i++){
-            std::cout << previous_vertexs[i] << ", ";
-        }
-    }
-
     if(finished_flag){
-        std::cout << "Jest droga na druga strone" << std::endl;
+        std::cout << std::endl << "Jest droga na druga strone" << std::endl;
 
         int step = number_of_vertices - 1;
         while(step != 0){
-            std::cout << "do krokodyla o numerze: " << step << " dotrzemy z krokodyla o numerze: " << previous_vertexs[step] << " odleglosc wynosi: " << path_weigths[step] << " stop" << std::endl;
+            std::cout << std::endl << "do krokodyla o numerze: " << step << " dotrzemy z krokodyla o numerze: " << previous_vertexs[step] << " odleglosc wynosi: " << path_weigths[step] << " stop" << std::endl;
             step = previous_vertexs[step];
         }
     }
