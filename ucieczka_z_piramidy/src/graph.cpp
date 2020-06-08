@@ -4,18 +4,18 @@
 #define PRIM_INF 254
 #define DEBBUG 0
 
-Graph::Graph(std::string nazwa_pliku)
+Graph::Graph(std::string pyramid_file_name)
 {
-    crocodiles_along_the_way = look_at_the_crocodiles(nazwa_pliku);
+    crocodiles_along_the_way = look_at_the_crocodiles(pyramid_file_name);
     think_about_the_way(crocodiles_along_the_way);
 }
 
-std::string Graph::look_at_the_crocodiles(std::string nazwa_pliku)
+std::string Graph::look_at_the_crocodiles(std::string pyramid_file_name)
 {
     std::string line, something;
     int helpint;            // pomocniczy int do wyznaczenia dlugosci lancucha
     std::fstream file;
-    file.open(nazwa_pliku,std::ios::in);
+    file.open(pyramid_file_name,std::ios::in);
 
     if(file.good()==false)
     {
