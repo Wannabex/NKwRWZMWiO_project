@@ -65,17 +65,47 @@ void Graph::think_about_the_way(std::string crocodiles_along_the_way)
     }
 }
 
-void Graph::calculate_possible_way()
-{
-    int path_weigths[number_of_vertices];                                           //ta tablica pokazuje wage sciezki ktora doprowadzila do danego wierzcholka path_weights[3] = 5 oznacza, ze sciezka ktora dostalismy do 3 z poprzedniego wierzcholka wynosi 5
-    int previous_vertexs[number_of_vertices];                                       //pokazuje poprzedni wierzcho³ek, previous_vertexs[3] = 2 oznacza, ze do 3. wiercholka dostalismy sie z 2
-    int finished_vertexs[number_of_vertices];                                       //tablica "techniczna" 0 oznacza, ze jeszcze nie dotarlismy do wierzcholka, 1 oznacza, ze juz tam dotarlismy
-    for(int i = 0; i < number_of_vertices; i++){
-        path_weigths[i] = PRIM_INF;
-        previous_vertexs[i] = PRIM_NULL;                                            //inicjalizacja powyzszych tablic
-        finished_vertexs[i] = 0;
+bool Graph::check_algoritm(int finished_vertexs[]){
+    bool return_value = true;
+
+    for (int vertex = 0; vertex < this->number_of_vertices; vertex++){
+        if(finished_vertexs[vertex] == 0){
+            return_value = false;
+            break;
+        }
     }
 
+    return return_value;
+}
+
+void Graph::print_algoritm_result(int path_weigths[], int previous_vertexs[], bool finished_flag){
+    if(DEBBUG == 1){
+        std::cout << std::endl;
+        for(int i = 1; i < number_of_vertices; i++){
+            std::cout << path_weigths[i] << ", ";
+        }
+
+        std::cout << std::endl;
+        for(int i = 1; i < number_of_vertices; i++){
+            std::cout << previous_vertexs[i] << ", ";
+        }
+    }
+
+    if(finished_flag){
+        std::cout << "Jest droga na druga strone" << std::endl;
+
+        int step = number_of_vertices - 1;
+        while(step != 0){
+            std::cout << "do krokodyla o numerze: " << step << " dotrzemy z krokodyla o numerze: " << previous_vertexs[step] << " odleglosc wynosi: " << path_weigths[step] << " stop" << std::endl;
+            step = previous_vertexs[step];
+        }
+    }
+    else{
+        std::cout << "Nie ma drogi na druga strone" << std::endl;
+    }
+}
+
+void Graph::prim_algoritm(int path_weigths[], int previous_vertexs[], int finished_vertexs[]){
     int actual_vertex = 0;                                                          //arbitralne wybranie poczatkowego wezla
     path_weigths[actual_vertex] = 0;
 
@@ -104,43 +134,23 @@ void Graph::calculate_possible_way()
                 }
             }
         }
+    }
+}
 
-
+void Graph::calculate_possible_way()
+{
+    int path_weigths[number_of_vertices];                                           //ta tablica pokazuje wage sciezki ktora doprowadzila do danego wierzcholka path_weights[3] = 5 oznacza, ze sciezka ktora dostalismy do 3 z poprzedniego wierzcholka wynosi 5
+    int previous_vertexs[number_of_vertices];                                       //pokazuje poprzedni wierzcho³ek, previous_vertexs[3] = 2 oznacza, ze do 3. wiercholka dostalismy sie z 2
+    int finished_vertexs[number_of_vertices];                                       //tablica "techniczna" 0 oznacza, ze jeszcze nie dotarlismy do wierzcholka, 1 oznacza, ze juz tam dotarlismy
+    for(int i = 0; i < number_of_vertices; i++){
+        path_weigths[i] = PRIM_INF;
+        previous_vertexs[i] = PRIM_NULL;                                            //inicjalizacja powyzszych tablic
+        finished_vertexs[i] = 0;
     }
 
-    bool is_work_flag = true;
-
-    for (int vertex = 0; vertex < this->number_of_vertices; vertex++){
-        if(finished_vertexs[vertex] == 0){
-            is_work_flag = false;
-            break;
-        }
-    }
-
-    if(DEBBUG == 1){
-        std::cout << std::endl;
-        for(int i = 1; i < number_of_vertices; i++){
-            std::cout << path_weigths[i] << ", ";
-        }
-
-        std::cout << std::endl;
-        for(int i = 1; i < number_of_vertices; i++){
-            std::cout << previous_vertexs[i] << ", ";
-        }
-    }
-
-    if(is_work_flag){
-        std::cout << "Jest droga na druga strone" << std::endl;
-
-        int step = number_of_vertices - 1;
-        while(step != 0){
-            std::cout << "do krokodyla o numerze: " << step << " dotrzemy z krokodyla o numerze: " << previous_vertexs[step] << " odleglosc wynosi: " << path_weigths[step] << " stop" << std::endl;
-            step = previous_vertexs[step];
-        }
-    }
-    else{
-        std::cout << "Nie ma drogi na druga strone" << std::endl;
-    }
+    prim_algoritm(path_weigths, previous_vertexs, finished_vertexs);                //policz algorytm
+    bool finished_flag = check_algoritm(finished_vertexs);                          //sprawdz czy algorytm sie udal
+    print_algoritm_result(path_weigths, previous_vertexs, finished_flag);           //wyswietl wyniki algorytmu
 
 }
 

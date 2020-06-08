@@ -13,6 +13,9 @@ class Graph
     public:
         Graph(std::string nazwa_pliku);
         void calculate_possible_way();                                       // zad 4. Glówny algorytm - sprawdzenie czy uda sie przeskoczyc na druga strone - algorytm prima/kruskala
+        bool check_algoritm(int finished_vertexs[]);                                                    //funkcja pomocnicza do zad 4.
+        void print_algoritm_result(int path_weigths[], int previous_vertexs[], bool finished_flag);     //funkcja pomocnicza do zad 4.
+        void prim_algoritm(int path_weigths[], int previous_vertexs[], int finished_vertexs[]);         //funkcja pomocnicza do zad 4.
 
         void print_pyramid_map();                                                // Wypisac grafik jako macierz sasiedztwa, nawet niepotrzebne
 
